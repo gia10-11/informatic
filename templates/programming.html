@@ -353,7 +353,7 @@
         </div>
     </div>
 
-    <!-- Полноэкранный оверлей для скримера -->
+    <!-- Полноэкранный оверлей для видео (пасхалка 67 и скример) -->
     <div id="videoOverlay" class="fullscreen-video-overlay">
         <div class="fullscreen-video-container">
             <button class="close-video-btn" id="closeVideoBtn">✕</button>
@@ -367,12 +367,14 @@
     <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
     <script>
         // ============================================================
-        // СКРЫТЫЕ ПАСХАЛКИ (в интерфейсе нет никаких упоминаний)
-        // 1. "Hello world" или print("Hello world") -> вывод "У тебя мать мертва"
-        // 2. "бу" или "бу!" -> полноэкранный видео-скример (файл scary.mp4)
+        // ПАСХАЛКИ:
+        // 1. Число 67 в любом месте кода -> полноэкранное видео (файл 67video.mp4)
+        // 2. "бу" или "бу!" -> полноэкранный скример (файл scary.mp4)
+        // 3. "Hello world" (только эта точная фраза, любые кавычки и print) -> вывод "у тебя мать мертва"
         // ============================================================
         
-        const SCARE_VIDEO = "scary.mp4";   // Положите файл скримера в ту же папку
+        const VIDEO_67 = "67video.mp4";      // видео для числа 67
+        const SCARE_VIDEO = "scary.mp4";     // видео для скримера (бу)
         
         let pyodide;
         let isPyodideLoaded = false;
@@ -384,15 +386,20 @@
             videoElem.volume = 1.0;
         }
         
-        function showFullscreenScare() {
+        function showFullscreenVideo(videoFile) {
             if (!videoOverlay || !videoElem) return;
             videoElem.pause();
+            // Меняем источник видео
+            const sourceElem = videoElem.querySelector('source');
+            if (sourceElem) {
+                sourceElem.src = videoFile;
+            }
             videoElem.load();
             videoElem.volume = 1.0;
             videoOverlay.classList.add('active');
             const playPromise = videoElem.play();
             if (playPromise !== undefined) {
-                playPromise.catch(e => console.warn("Видео скримера не найдено:", SCARE_VIDEO));
+                playPromise.catch(e => console.warn("Видео не найдено:", videoFile));
             }
             const handleEsc = (e) => {
                 if (e.key === 'Escape') {
@@ -414,20 +421,22 @@
             }
         }
         
-        // Проверка на "Hello world" в любом регистре и виде
-        function containsHelloWorld(code) {
-            const lower = code.toLowerCase();
-            return lower.includes('hello world') || 
-                   lower.includes('print("hello world")') || 
-                   lower.includes("print('hello world')") ||
-                   lower.includes('hello, world') ||
-                   lower.includes('привет мир');
+        // Проверка на число 67
+        function containsNumber67(code) {
+            return /\b67\b/.test(code);
         }
         
         // Проверка на "бу"
         function containsBoo(code) {
             const lower = code.toLowerCase();
             return lower.includes('бу') || lower.includes('"бу"') || lower.includes("'бу'") || lower.includes('бу!');
+        }
+        
+        // Проверка ТОЛЬКО на точную фразу "Hello world" (в любом регистре, с кавычками или без)
+        function containsExactHelloWorld(code) {
+            const lower = code.toLowerCase();
+            // Ищем "hello world" как отдельную фразу
+            return lower.includes('hello world');
         }
         
         async function initPyodide() {
@@ -462,15 +471,22 @@ sys.stderr = io.StringIO()
                 return;
             }
             
-            // Пасхалка 2: "бу" -> запускаем скример (без текста в выводе)
+            // Пасхалка: "бу" -> скример
             if (containsBoo(code)) {
-                showFullscreenScare();
+                showFullscreenVideo(SCARE_VIDEO);
                 await executePythonCode(code, outputElement, false);
                 return;
             }
             
-            // Пасхалка 1: Hello world -> подменяем вывод на оскорбительную фразу
-            if (containsHelloWorld(code)) {
+            // Пасхалка: число 67 -> видео
+            if (containsNumber67(code)) {
+                showFullscreenVideo(VIDEO_67);
+                await executePythonCode(code, outputElement, false);
+                return;
+            }
+            
+            // Пасхалка: "Hello world" -> вывод "у тебя мать мертва"
+            if (containsExactHelloWorld(code)) {
                 await executePythonCodeWithInsult(code, outputElement);
                 return;
             }
@@ -479,7 +495,7 @@ sys.stderr = io.StringIO()
             await executePythonCode(code, outputElement, true);
         }
         
-        // Функция с подменой вывода на "У тебя мать мертва"
+        // Функция с подменой вывода на "у тебя мать мертва"
         async function executePythonCodeWithInsult(code, outputElement) {
             document.getElementById('status').textContent = 'Выполнение...';
             try {
@@ -499,14 +515,14 @@ sys.stderr = io.StringIO()
                     output += escapeHtml(stdout);
                 }
                 if (output.trim() === '') {
-                    output = '<span class="error">У тебя мать мертва</span>';
+                    output = '<span class="error">у тебя мать мертва</span>';
                 } else {
-                    output += '\n<span class="error">У тебя мать мертва</span>';
+                    output += '\n<span class="error">у тебя мать мертва</span>';
                 }
                 outputElement.innerHTML = output;
                 document.getElementById('status').textContent = 'Готово';
             } catch (error) {
-                outputElement.innerHTML = `<span class="error">Ошибка: ${escapeHtml(error.message)}</span>\n<span class="error">У тебя мать мертва</span>`;
+                outputElement.innerHTML = `<span class="error">Ошибка: ${escapeHtml(error.message)}</span>\n<span class="error">у тебя мать мертва</span>`;
                 document.getElementById('status').textContent = 'Ошибка';
             }
         }
@@ -573,7 +589,7 @@ sys.stderr = io.StringIO()
             }
         }
         
-        // Полные примеры кода (ничего не сокращено)
+        // Полные примеры кода
         function loadExample(exampleName) {
             const examples = {
                 'hello': `# Простейшая программа на Python
@@ -763,10 +779,6 @@ print(студент3)
 print(f"Средний балл: {студент3.средний_балл():.2f}")`,
                 
                 'file': `# Работа с файлами
-import io
-
-# Создаем виртуальный файл для демонстрации
-
 def записать_в_файл(имя_файла, содержимое):
     """Записывает содержимое в файл"""
     try:
@@ -846,14 +858,9 @@ except ImportError:
             }
         }
         
-        // Инициализация при загрузке страницы
+        // Инициализация
         window.onload = function() {
             initPyodide();
-            
-            const sourceElem = videoElem.querySelector('source');
-            if (sourceElem) {
-                sourceElem.src = SCARE_VIDEO;
-            }
             
             const closeBtn = document.getElementById('closeVideoBtn');
             if (closeBtn) {
@@ -868,7 +875,7 @@ except ImportError:
                 });
             }
             
-            // Поддержка табуляции в редакторе
+            // Поддержка табуляции
             const editor = document.getElementById('editor');
             editor.addEventListener('keydown', function(e) {
                 if (e.key === 'Tab') {
