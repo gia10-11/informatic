@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Методы измерения количества информации</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .theory-container {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background-color: #f1f8ff;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .practice-block {
+            background-color: #e7f7e7;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        
+        code, math {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        b, strong {
+            color: #2c3e50;
+        }
+        
+        i, em {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Методы измерения количества информации: вероятностный и алфавитный</h1>
+<div><p>Единицей измерения количества информации является <i>бит</i>. <b>1 бит </b>— это количество информации, содержащейся в сообщении, которое вдвое уменьшает неопределенность знаний о чем-либо.</p>
+<p>Связь между количеством возможных событий N и количеством информации I определяется <b>формулой Хартли:</b></p>
+<p>N = 2<sup>I</sup>.</p>
+<p>Например, пусть шарик находится в одной из четырех коробок. Таким образом, имеется четыре равновероятных события (N = 4). Тогда по формуле Хартли 4 = 2<sup>I</sup>. Отсюда I = 2. То есть сообщение о том, в какой именно коробке находится шарик, содержит 2 бита информации.</p>
+<p><b>Алфавитный подход</b></p>
+<p>При алфавитном подходе к определению количества информации отвлекаются от содержания (смысла) информации и рассматривают ее как последовательность знаков определенной знаковой системы. Набор символов языка (алфавит) можно рассматривать как различные возможные события. Тогда, если считать, что появление символов в сообщении равновероятно, по формуле Хартли можно рассчитать, какое количество информации несет каждый символ:</p>
+<p>I = log<sub>2</sub> N.</p>
+<p>Например, в русском языке 32 буквы (буква ё обычно не используется), т. е. количество событий будет равно 32. Тогда информационный объем одного символа будет равен:</p>
+<p>I = log<sub>2</sub> 32 = 5 битов.</p>
+<p>Если N не является целой степенью 2, то число log<sub>2</sub>N не является целым числом, и для I надо выполнять округление в большую сторону. При решении задач в таком случае I можно найти как log<sub>2</sub>N', где N′ — ближайшая к N степень двойки — такая, что N′ &gt; N.</p>
+<p>Например, в английском языке 26 букв. Информационный объем одного символа можно найти так:</p>
+<p>N = 26; N' = 32; I = log<sub>2</sub>N'&nbsp;= log<sub>2</sub>(2<sup>5</sup>) = 5 битов.</p>
+<p>Если количество символов алфавита равно N, а количество символов в записи сообщения равно М, то информационный объем данного сообщения вычисляется по формуле:</p>
+<p>I = M · log<sub>2</sub>N.</p>
+<p><b>Примеры решения задач</b></p>
+<p><b>Пример 1.</b> Световое табло состоит из лампочек, каждая из которых может находиться в одном из двух состояний («включено» или «выключено»). Какое наименьшее количество лампочек должно находиться на табло, чтобы с его помощью можно было передать 50 различных сигналов?</p>
+<p><i>Решение.</i> С помощью n лампочек, каждая из которых может находиться в одном из двух состояний, можно закодировать 2<sup>n</sup> сигналов. 2<sup>5</sup>&nbsp;&lt; 50 &lt; 2<sup>6</sup>, поэтому пяти лампочек недостаточно, а шести хватит.</p>
+<p><i>Ответ:</i> 6.</p>
+<p><b>Пример 2.</b> Метеорологическая станция ведет наблюдения за влажностью воздуха. Результатом одного измерения является целое число от 0 до 100, которое записывается при помощи минимально возможного количества битов. Станция сделала 80 измерений. Определите информационный объем результатов наблюдений.</p>
+<p><i>Решение.</i> В данном случае алфавитом является множество целых чисел от 0 до 100. Всего таких значений 101. Поэтому информационный объем результатов одного измерения I = log<sub>2</sub>101. Это значение не будет целочисленным. Заменим число 101 ближайшей к нему степенью двойки, большей 101. Это число 128 = 27. Принимаем для одного измерения I = log<sub>2</sub>128 = 7 битов. Для 80 измерений общий информационный объем равен:</p>
+<p>80 · 7 = 560 битов = 70 байтов.</p>
+<p><i>Ответ:</i> 70 байтов.</p>
+<p><b>Вероятностный подход</b></p>
+<p>Вероятностный подход к измерению количества информации применяют, когда возможные события имеют различные вероятности реализации. В этом случае количество информации определяют <b>по формуле Шеннона:</b></p>
+<p><math alttext="I=-∑↙{i=1}↖{N}p_ilog_2p_i"><mrow><mi mathvariant="italic">I</mi><mo>=</mo><mrow><mo>−</mo><mrow class="ma-repel-adj"><munderover><mo>∑</mo><mrow><mi mathvariant="italic">i</mi><mo>=</mo><mn>1</mn></mrow><mi mathvariant="italic">N</mi></munderover><mrow><mrow><mrow><mrow><msub><mi mathvariant="italic">p</mi><mi mathvariant="italic">i</mi></msub><mi mathvariant="italic">l</mi></mrow><mi mathvariant="italic">o</mi></mrow><msub><mi mathvariant="italic">g</mi><mn>2</mn></msub></mrow><msub><mi mathvariant="italic">p</mi><mi mathvariant="italic">i</mi></msub></mrow></mrow></mrow></mrow></math>,</p>
+<p>где <math alttext="I"><mi mathvariant="italic">I</mi></math> — количество информации;</p>
+<p><math alttext="N"><mi mathvariant="italic">N</mi></math> — количество возможных событий;</p>
+<p><math alttext="p_i"><msub><mi mathvariant="italic">p</mi><mi mathvariant="italic">i</mi></msub></math> — вероятность <math alttext="i"><mi mathvariant="italic">i</mi></math>-го события.</p>
+<p>Например, пусть при бросании несимметричной четырехгранной пирамидки вероятности отдельных событий будут равны:</p>
+<p><math alttext="p_1={1}/{2}, p_2={1}/{4}, p_3={1}/{8}, p_4={1}/{8}"><mrow><mrow><mrow><mrow><msub><mi mathvariant="italic">p</mi><mn>1</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow><mo>,</mo><mrow><msub><mi mathvariant="italic">p</mi><mn>2</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow></mrow><mo>,</mo><mrow><msub><mi mathvariant="italic">p</mi><mn>3</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></mrow><mo>,</mo><mrow><msub><mi mathvariant="italic">p</mi><mn>4</mn></msub><mo>=</mo><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></mrow></math>.</p>
+<p>Тогда количество информации, которое будет получено после реализации одного из них, можно вычислить по формуле Шеннона:</p>
+<p><math alttext="I=-({1}/{2}·log_2{1}/{2}+{1}/{4}·log_2{1}/{4}+{1}/{8}·log_2{1}/{8}+{1}/{8}·log_2{1}/{8})={14}/{8}"><mrow><mrow><mi mathvariant="italic">I</mi><mo>=</mo><mrow><mo>−</mo><mrow><mo>(</mo><mrow><mrow><mrow><mrow><mfrac><mn>1</mn><mn>2</mn></mfrac><mo>·</mo><mrow><mrow><mrow><mi mathvariant="italic">l</mi><mi mathvariant="italic">o</mi></mrow><msub><mi mathvariant="italic">g</mi><mn>2</mn></msub></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></mrow></mrow><mo>+</mo><mrow><mfrac><mn>1</mn><mn>4</mn></mfrac><mo>·</mo><mrow><mrow><mrow><mi mathvariant="italic">l</mi><mi mathvariant="italic">o</mi></mrow><msub><mi mathvariant="italic">g</mi><mn>2</mn></msub></mrow><mfrac><mn>1</mn><mn>4</mn></mfrac></mrow></mrow></mrow><mo>+</mo><mrow><mfrac><mn>1</mn><mn>8</mn></mfrac><mo>·</mo><mrow><mrow><mrow><mi mathvariant="italic">l</mi><mi mathvariant="italic">o</mi></mrow><msub><mi mathvariant="italic">g</mi><mn>2</mn></msub></mrow><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></mrow></mrow><mo>+</mo><mrow><mfrac><mn>1</mn><mn>8</mn></mfrac><mo>·</mo><mrow><mrow><mrow><mi mathvariant="italic">l</mi><mi mathvariant="italic">o</mi></mrow><msub><mi mathvariant="italic">g</mi><mn>2</mn></msub></mrow><mfrac><mn>1</mn><mn>8</mn></mfrac></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>=</mo><mfrac><mn>14</mn><mn>8</mn></mfrac></mrow></math> битов <math alttext="= 1.75 "><mrow><mo>=</mo><mn>1.75</mn></mrow></math>бита.</p>
+<h4>Единицы измерения количества информации</h4>
+<p>Наименьшей единицей информации является <i>бит</i> (англ. <i>binary digit (bit)</i> — двоичная единица информации).</p>
+<p><b>Бит</b> — это количество информации, необходимое для однозначного определения одного из двух равновероятных событий. Например, один бит информации получает человек, когда он узнает, опаздывает с прибытием нужный ему поезд или нет, был ночью мороз или нет, присутствует на лекции студент Иванов или нет и т. д.</p>
+<p>В информатике принято рассматривать последовательности длиной 8 битов. Такая последовательность называется <b>байтом.</b></p>
+<p><b>Производные единицы измерения количества информации:</b></p>
+<p>1 байт = 8 битов</p>
+<p>1 килобайт (Кб) = 1024 байта = 2<sup>10</sup> байтов</p>
+<p>1 мегабайт (Мб) = 1024 килобайта = 2<sup>20</sup> байтов</p>
+<p>1 гигабайт (Гб) = 1024 мегабайта = 2<sup>30</sup> байтов</p>
+<p>1 терабайт (Тб) = 1024 гигабайта = 2<sup>40</sup> байтов</p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Алгебра логики. Обработка математических выражений</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .theory-container {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background-color: #f1f8ff;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .practice-block {
+            background-color: #e7f7e7;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        
+        code, math {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        b, strong {
+            color: #2c3e50;
+        }
+        
+        i, em {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Алгебра логики. Обработка математических выражений</h1>
+<h2 class="static-subhead">Теория к заданию 15 из ЕГЭ по информатике</h2>
+<div><p><b>Тождественные преобразования логических выражений</b></p>
+<p>В алгебре логики выполняются основные законы, позволяющие производить тождественные преобразования логических выражений.</p>
+<table>
+<tbody>
+<tr>
+<td><b>Закон</b></td>
+<td><b>Для ∨</b></td>
+<td><b>Для ∧</b></td>
+</tr>
+<tr>
+<td>Переместительный</td>
+<td>A ∨ B = B ∨ A</td>
+<td>A ∧ B = B ∧ A</td>
+</tr>
+<tr>
+<td>Сочетательный</td>
+<td>A ∨ (B ∨ C) = (B ∨ A) ∨ C</td>
+<td>A ∧ (B ∧ C) = (A ∧ B) ∧ C</td>
+</tr>
+<tr>
+<td>Распределительный</td>
+<td>A ∧ (B ∨ C) = (A ∧ B) ∨ (A ∧ C)</td>
+<td>A ∨ B ∧ C = (A ∨ B) ∧ (A ∨ C)</td>
+</tr>
+<tr>
+<td>Правила де Моргана</td>
+<td><math alttext="{A ∨ B}↖{-}"><mover><mrow><mi mathvariant="italic">A</mi><mo>∨</mo><mi mathvariant="italic">B</mi></mrow><mo>−</mo></mover></math> = <math alttext="A↖{-} ∧ B↖{-}"><mrow><mover><mi mathvariant="italic">A</mi><mo>−</mo></mover><mo>∧</mo><mover><mi mathvariant="italic">B</mi><mo>−</mo></mover></mrow></math></td>
+<td><math alttext="{A ∧ B}↖{-}"><mover><mrow><mi mathvariant="italic">A</mi><mo>∧</mo><mi mathvariant="italic">B</mi></mrow><mo>−</mo></mover></math> = <math alttext="A↖{-} ∨ B↖{-}"><mrow><mover><mi mathvariant="italic">A</mi><mo>−</mo></mover><mo>∨</mo><mover><mi mathvariant="italic">B</mi><mo>−</mo></mover></mrow></math></td>
+</tr>
+<tr>
+<td>Идемпотенции</td>
+<td>A ∨ A = A</td>
+<td>A ∧ A = A</td>
+</tr>
+<tr>
+<td>Поглощения</td>
+<td>A ∨ A ∧ B = A</td>
+<td>A ∧ (A ∨ B) = A</td>
+</tr>
+<tr>
+<td>Склеивания</td>
+<td>(A ∧ B) ∨ (A↖{-} ∧ B) = B</td>
+<td>(A ∨ B) ∧ (A↖{-} ∨ B) = B</td>
+</tr>
+<tr>
+<td>Операция переменной с ее инверсией</td>
+<td><math alttext="A ∨ A↖{-}"><mrow><mi mathvariant="italic">A</mi><mo>∨</mo><mover><mi mathvariant="italic">A</mi><mo>−</mo></mover></mrow></math> = 1</td>
+<td><math alttext="A ∧ A↖{-}"><mrow><mi mathvariant="italic">A</mi><mo>∧</mo><mover><mi mathvariant="italic">A</mi><mo>−</mo></mover></mrow></math> = 0</td>
+</tr>
+<tr>
+<td>Операция с константами</td>
+<td>A ∨ 0 = A<br>
+A ∨ 1 = 1</td>
+<td>A ∧ 1 = A<br>
+A ∧ 0 = 0</td>
+</tr>
+<tr>
+<td>Двойного отрицания</td>
+<td colspan="2"><math alttext="A↖{=}"><mover><mi mathvariant="italic">A</mi><mo>=</mo></mover></math> = A</td>
+</tr>
+</tbody>
+</table>
+<p>Доказательства этих утверждений производят на основании построения таблиц истинности для соответствующих записей.</p>
+<p>Равносильные преобразования логических формул имеют то же назначение, что и преобразования формул в обычной алгебре. Они служат для упрощения формул или приведения их к определенному виду путем использования основных законов алгебры логики. Под <i>упрощением формулы</i>, не содержащей операций импликации и эквивалентности, понимают равносильное преобразование, приводящее к формуле, которая содержит либо меньшее по сравнению с исходной число операций, либо меньшее число переменных.</p>
+<p>Некоторые преобразования логических формул похожи на преобразования формул в обычной алгебре (вынесение общего множителя за скобки, использование переместительного и сочетательного законов и т. п.), тогда как другие преобразования основаны на свойствах, которыми не обладают операции обычной алгебры (использование распределительного закона для конъюнкции, законов поглощения, склеивания, де Моргана и др.).</p>
+<p>Рассмотрим на примерах некоторые приемы и способы, применяемые при упрощении логических формул:</p>
+<p>1) X1 ∧ X2 ∨ X1 ∧ X2 ∪ ¬X1 ∧ X2 = X1 ∧ X2 ∨ ¬X1 ∧ X2 = (X1 ∨ ¬X1) ∧ X2 = 1 ∧ X2 = X2 .</p>
+<p>Для преобразования здесь можно применить закон идемпотенции, распределительный закон; операцию переменной с инверсией и операцию с константой.</p>
+<p>2) X1 ∨ X1 ∧ X2 = X1 ∨ (1 ∨ 1 ∧ X2) = X1 ∨ (1 ∨ X2) = X1 .</p>
+<p>Здесь для упрощения применяется закон поглощения.</p>
+<p>3) ¬(X1 ∧ X2) ∨ X2 = (¬X1 ∨ ¬X2) ∨ X2 = ¬X1 ∨ ¬X2 ∨ X2 = ¬X1 ∨ 1 = 1 .</p>
+<p>При преобразовании применяются правило де Моргана, операция переменной с ее инверсией, операция с константой</p>
+<p><b>Примеры решения задач</b></p>
+<p><b>Пример 1.</b> Найти логическое выражение, равносильное выражению A ∧ ¬(¬B ∨ C) .</p>
+<p><i>Решение.</i> Применяем правило де Моргана для В и С: ¬(¬B ∨ C) = B ∧ ¬C .</p>
+<p>Получаем выражение, равносильное исходному: A ∧ ¬(¬B ∨ C) = A ∧ B ∧ ¬C .</p>
+<p><i>Ответ:</i> A ∧ B ∧ ¬C.</p>
+<p><b>Пример 2.</b> Указать значение логических переменных А, В, С, для которых значение логического выражения (A ∨ B) → (B ∨ ¬C ∨ B) ложно.</p>
+<p><i>Решение.</i> Операция импликации ложна только в случае, когд а из истинной посылки следует ложь. Следовательно, для заданного выражения посылка A ∨ B должна принимать значение «истина», а следствие, т. е. выражение B ∨ ¬C ∨ B , — «ложь».</p>
+<p>1) A ∨ B — результат дизъюнкции — «истина», если хотя бы один из операндов — «истина»;</p>
+<p>2) B ∨ ¬C ∨ B — выражение ложно, если все слагаемые имеют значение «ложь», т. е. В — «ложь»; ¬C — «ложь», а следовательно, переменная С имеет значение «истина»;</p>
+<p>3) если рассмотреть посылку и учесть, что В — «ложь», то получим, что значение А — «истина».</p>
+<p><i>Ответ:</i> А — истина, В — ложь, С — истина.</p>
+<p><b>Пример 3.</b> Каково наибольшее целое число X, при котором истинно высказывание (35 &lt; X · X) → (X &lt; (X - 3)) ?</p>
+<p><i>Решение.</i> Запишем таблицу истинности для операции импликации:</p>
+<table>
+<tbody>
+<tr>
+<td>A</td>
+<td>B</td>
+<td>A → B</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Выражение X &lt; (X - 3) ложно при любых положительных значениях X. Следовательно, для того чтобы результатом импликации была «истина», необходимо и достаточно, чтобы выражение 35 &lt; X · X также было ложно. Максимальное целое значение X, для которого 35 &lt; X · X ложно, равно 5.</p>
+<p><i>Ответ:</i> X = 5.</p></div>
+</body>
+</html>

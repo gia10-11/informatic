@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Условие Фано</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            margin-top: 25px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 5px;
+        }
+        
+        .theory-container {
+            background-color: #f8fafc;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .example-box {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background-color: #f1f8ff;
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .practice-block {
+            background-color: #e7f7e7;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-link {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        
+        code, math {
+            background-color: #f5f5f5;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        b, strong {
+            color: #2c3e50;
+        }
+        
+        i, em {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Условие Фано</h1>
+<h2 class="static-subhead">Теория к заданию 4 из ЕГЭ по информатике</h2>
+<div><div class="border_element">
+<p><strong>Условие Фано гласит</strong>: ни один код не должен быть началом другого (более длинного) кода.</p>
+</div>
+<p class="sc-iWajrY bkDXJy">Именно это свойство и гарантирует однозначное декодирование сообщения.</p>
+<h2>Суть декодирования с применением условия Фано</h2>
+<p class="sc-iWajrY bkDXJy">Если код удовлетворяет условию Фано, то любое сообщение можно восстановить единственным способом. Причина проста: всякий раз, когда мы видим некоторое двоичное слово, мы знаем наверняка, какой символ оно кодирует, потому что никакие другие символы не начинаются с этого фрагмента кода.</p>
+<p class="sc-iWajrY bkDXJy">Процесс декодирования выглядит так:</p>
+<ol class="sc-KfMfS kyJymP">
+<li class="sc-gHLcSH kcpLWs"><div>Читаем закодированное сообщение слева направо.</div></li>
+<li class="sc-gHLcSH kcpLWs"><div>Берём самый короткий префикс, который совпадает с одним из известных нам кодов.</div></li>
+<li class="sc-gHLcSH kcpLWs"><div>Декодируем этот фрагмент как отдельный символ.</div></li>
+<li class="sc-gHLcSH kcpLWs"><div>Переходим к следующему символу и повторяем процедуру.</div></li>
+</ol>
+<p>Пример неравномерного кода, выполняющего условие Фано:</p>
+<div class="tableWrapper"><table>
+<tbody>
+<tr>
+<td style="text-align:center;" width="85">
+<p>О</p>
+</td>
+<td style="text-align:center;" width="95">
+<p>Л</p>
+</td>
+<td style="text-align:center;" width="94">
+<p>В</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;" width="85">
+<p>0</p>
+</td>
+<td style="text-align:center;" width="95">
+<p>10</p>
+</td>
+<td style="text-align:center;" width="94">
+<p>11</p>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Тогда слово «ОЛОВО» кодируется как «0100110» и имеет только один вариант дешифровки.</p>
+<p class="sc-iWajrY bkDXJy">Если бы использовалось неправильное кодирование, нарушающее условие Фано, восстановление было бы невозможным или многозначным. Например, предположим неправильный код:</p>
+<div class="tableWrapper"><table>
+<tbody>
+<tr>
+<td style="text-align:center;" width="85">
+<p>А</p>
+</td>
+<td style="text-align:center;" width="95">
+<p>В</p>
+</td>
+<td style="text-align:center;" width="94">
+<p>С</p>
+</td>
+</tr>
+<tr>
+<td style="text-align:center;" width="85">
+<p>0</p>
+</td>
+<td style="text-align:center;" width="95">
+<p>01</p>
+</td>
+<td style="text-align:center;" width="94">
+<p>1</p>
+</td>
+</tr>
+</tbody>
+</table></div>
+<p class="sc-iWajrY bkDXJy">Если мы хотим закодировать слово «AB», получится «001». Но если мы захотим декодировать «001», появится проблема: неясно, считать ли первые два символа как AA или первым символом считать A, а вторым — B. Следовательно, нарушается однозначность декодирования.</p>
+<p class="sc-iWajrY bkDXJy">Помимо обычного (прямого) условия Фано, существует ещё так называемое <strong class="sc-gJwTLC bOFbBV">обратное условие Фано.</strong></p>
+<div class="border_element">
+<p><strong>Обратное условие Фано</strong> гласит: ни один код не должен быть окончанием другого (более длинного) кода.</p>
+</div>
+<p>Условие Фано — это фундаментальное требование для гарантированной однозначности декодирования. Для возможности однозначного декодирования достаточно выполнения одного из условий — или прямого, или обратного.&nbsp;</p>
+<p>Заметим, что существуют варианты неравномерного кодирования, для которых оба условия нарушены, и тем не менее они однозначно декодируются.</p></div>
+</body>
+</html>
