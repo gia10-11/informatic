@@ -370,7 +370,8 @@
         // ПАСХАЛКИ:
         // 1. Число 67 в любом месте кода -> полноэкранное видео (файл 67video.mp4)
         // 2. "бу" или "бу!" -> полноэкранный скример (файл scary.mp4)
-        // 3. "Hello world" (только эта точная фраза, любые кавычки и print) -> вывод "у тебя мать мертва"
+        // 3. ТОЛЬКО точная фраза Hello world("print") -> вывод "у тебя мать мертва"
+        //    (обычный print("Hello world") НЕ срабатывает)
         // ============================================================
         
         const VIDEO_67 = "67video.mp4";      // видео для числа 67
@@ -389,7 +390,6 @@
         function showFullscreenVideo(videoFile) {
             if (!videoOverlay || !videoElem) return;
             videoElem.pause();
-            // Меняем источник видео
             const sourceElem = videoElem.querySelector('source');
             if (sourceElem) {
                 sourceElem.src = videoFile;
@@ -432,11 +432,15 @@
             return lower.includes('бу') || lower.includes('"бу"') || lower.includes("'бу'") || lower.includes('бу!');
         }
         
-        // Проверка ТОЛЬКО на точную фразу "Hello world" (в любом регистре, с кавычками или без)
-        function containsExactHelloWorld(code) {
+        // Проверка ТОЛЬКО на точную фразу Hello world("print")
+        // Срабатывает именно когда пользователь пишет Hello world("print") в коде
+        function containsExactHelloWorldPrint(code) {
+            // Ищем точное совпадение: Hello world("print") или hello world("print") (регистр не важен)
             const lower = code.toLowerCase();
-            // Ищем "hello world" как отдельную фразу
-            return lower.includes('hello world');
+            // Варианты: Hello world("print") или hello world("print") или с пробелами разными
+            return lower.includes('hello world("print")') || 
+                   lower.includes('hello world("print")') ||
+                   /hello\s+world\s*\(\s*["']print["']\s*\)/.test(lower);
         }
         
         async function initPyodide() {
@@ -485,8 +489,8 @@ sys.stderr = io.StringIO()
                 return;
             }
             
-            // Пасхалка: "Hello world" -> вывод "у тебя мать мертва"
-            if (containsExactHelloWorld(code)) {
+            // Пасхалка: Hello world("print") -> вывод "у тебя мать мертва"
+            if (containsExactHelloWorldPrint(code)) {
                 await executePythonCodeWithInsult(code, outputElement);
                 return;
             }
